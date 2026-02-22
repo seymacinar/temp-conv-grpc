@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "tempconv/grpc/proto";
+
+package tempconv;
+
+// TemperatureConverter provides temperature conversion between Celsius and Fahrenheit.
+service TemperatureConverter {
+  // CelsiusToFahrenheit converts degrees Celsius to Fahrenheit.
+  rpc CelsiusToFahrenheit(CelsiusRequest) returns (FahrenheitResponse);
+
+  // FahrenheitToCelsius converts degrees Fahrenheit to Celsius.
+  rpc FahrenheitToCelsius(FahrenheitRequest) returns (CelsiusResponse);
+}
+
+message CelsiusRequest {
+  double celsius = 1;
+}
+
+message FahrenheitResponse {
+  double fahrenheit = 1;
+}
+
+message FahrenheitRequest {
+  double fahrenheit = 1;
+}
+
+message CelsiusResponse {
+  double celsius = 1;
+}

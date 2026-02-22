@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package tempconv;
+
+service TemperatureConverter {
+  rpc CelsiusToFahrenheit(CelsiusRequest) returns (FahrenheitResponse);
+  rpc FahrenheitToCelsius(FahrenheitRequest) returns (CelsiusResponse);
+}
+
+message CelsiusRequest {
+  double celsius = 1;
+}
+
+message FahrenheitResponse {
+  double fahrenheit = 1;
+}
+
+message FahrenheitRequest {
+  double fahrenheit = 1;
+}
+
+message CelsiusResponse {
+  double celsius = 1;
+}

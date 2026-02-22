@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: tempconv
+  labels:
+    app: tempconv
+    component: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tempconv
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: tempconv
+        component: backend
+    spec:
+      containers:
+        - name: backend
+          image: tempconv-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50051
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: tempconv
+  labels:
+    app: tempconv
+    component: backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 50051
+      targetPort: 50051
+      protocol: TCP
+      name: grpc
+  selector:
+    app: tempconv
+    component: backend

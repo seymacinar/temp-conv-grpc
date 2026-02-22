@@ -1,0 +1,29 @@
+# Local development and testing
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "50052:50051"   # Host 50052 -> container 50051 (50051 may be in use)
+    platform: linux/amd64
+
+  envoy:
+    build:
+      context: .
+      dockerfile: envoy/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    platform: linux/amd64
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.slim
+    ports:
+      - "8888:80"
+    depends_on:
+      - envoy
+    platform: linux/amd64

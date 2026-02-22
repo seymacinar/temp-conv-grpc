@@ -1,0 +1,7 @@
+# build/ - keep for Dockerfile.slim (pre-built web)
+.dart_tool/
+*.iml
+.git/
+.gitignore
+*.md
+.DS_Store

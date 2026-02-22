@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: tempconv
+  labels:
+    app: tempconv
+    component: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tempconv
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: tempconv
+        component: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: tempconv-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: tempconv
+  labels:
+    app: tempconv
+    component: frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: tempconv
+    component: frontend

@@ -1,0 +1,6 @@
+*.test
+*.out
+.git/
+.gitignore
+*.md
+.DS_Store
